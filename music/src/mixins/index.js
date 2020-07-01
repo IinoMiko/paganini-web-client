@@ -1,4 +1,4 @@
-import { getSongOfSingerName, getCollectionOfUser, getSortList } from '../api/index'
+import { getSongOfSearch, getCollectionOfUser, getSortList } from '../api/index'
 import { mapGetters } from 'vuex'
 
 export const mixin = {
@@ -110,7 +110,7 @@ export const mixin = {
         this.$store.commit('setListOfSongs', [])
         this.notify('您输入内容为空', 'warning')
       } else {
-        getSongOfSingerName(this.$route.query.keywords)
+        getSongOfSearch(this.$route.query.keywords)
           .then(res => {
             if (!res.length) {
               this.$store.commit('setListOfSongs', [])

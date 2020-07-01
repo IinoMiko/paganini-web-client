@@ -20,6 +20,15 @@ export default new Router({
   mode: 'history',
   routes: [
     {
+      path: '/',
+      name: 'index',
+      redirect: '/index',
+      component: AppIndex,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
       path: '*',
       redirect: '/home'
     },

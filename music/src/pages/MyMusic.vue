@@ -120,6 +120,7 @@ export default {
           name: "album-content"
         }
       )
+
     },
     remove(n){
       this.comName.splice(n,1)

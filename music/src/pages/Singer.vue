@@ -1,13 +1,7 @@
 <template>
   <div class="singer">
     <ul class="singer-header">
-      <li
-        v-for="(item, index) in singerStyle"
-        :key="index"
-        :class="{active: item.name === activeName}"
-        @click="handleChangeView(item)">
-        {{item.name}}
-      </li>
+      <li @click="getAllSinger">全部歌手</li>
     </ul>
     <content-list :contentList="data"></content-list>
     <div class="pagination">
@@ -25,7 +19,7 @@
 
 <script>
 import ContentList from '../components/ContentList'
-import { getAllSinger, getSingerOfSex } from '../api/index'
+import { getAllSinger} from '../api/index'
 
 export default {
   name: 'singer',
@@ -34,25 +28,6 @@ export default {
   },
   data () {
     return {
-        singerStyle: [
-            {
-                name: '全部歌手',
-                type: '-1'
-            },
-            {
-                name: '男歌手',
-                type: '1'
-            },
-            {
-                name: '女歌手',
-                type: '0'
-            },
-            {
-                name: '组合歌手',
-                type: '2'
-            }
-        ],
-        activeName: '全部歌手',
         pageSize: 15, // 页数
         currentPage: 1, // 当前页
         albumDatas: []
@@ -69,15 +44,6 @@ export default {
     handleCurrentChange (val) {
       this.currentPage = val
     },
-    handleChangeView (item) {
-      this.activeName = item.name
-      this.albumDatas = []
-      if (item.name === '全部歌手') {
-        this.getAllSinger()
-      } else {
-        this.getSingerSex(item.type)
-      }
-    },
     // 获取所有歌手
     getAllSinger () {
       getAllSinger()
@@ -89,17 +55,6 @@ export default {
           console.log(err)
         })
     },
-    // 通过性别对歌手分类
-    getSingerSex (sex) {
-      getSingerOfSex(sex)
-        .then(res => {
-          this.currentPage = 1
-          this.albumDatas = res
-        })
-        .catch(err => {
-          console.log(err)
-        })
-    }
   }
 }
 </script>
